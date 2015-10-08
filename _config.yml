@@ -1,0 +1,11 @@
+# Site settings
+title: Learn
+description: >
+  Learn some good stuff and have a better day
+baseurl: "/learn" # the subpath of your site, e.g. /blog/
+url: "http://nemophrost.github.io" # the base hostname & protocol for your site
+twitter_username: almamadsen
+github_username: nemophrost
+
+# Build settings
+markdown: kramdown

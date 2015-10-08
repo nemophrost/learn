@@ -1,0 +1,252 @@
+---
+title: Playground
+permalink: /playground/
+---
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Playground</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" rel="stylesheet" />
+  <style>
+    #editor { 
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      font-size: 12px;
+    }
+
+    #output {
+      position: absolute;
+      padding: 10px;
+      bottom: 50px;
+      right: 10px;
+      width: 400px;
+      max-width: 50%;
+      height: 320px;
+      box-sizing: border-box;
+      background-color: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+      border-radius: 3px 3px 0 0;
+      white-space: pre-wrap;
+      tab-size: 2.4em;
+      color: #444;
+      font: 12px/1.4 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+      z-index: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    #output > div {
+      margin-bottom: 10px;
+      padding-left: 2.4em;
+      text-indent: -2.4em;
+    }
+
+    #run {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 400px;
+      max-width: 50%;
+      height: 40px;
+      line-height: 40px;
+      background-color: rgba(232,232,232,0.95);
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+      border-radius: 0 0 3px 3px;
+      color: #444;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      text-align: center;
+      z-index: 0;
+      cursor: pointer;
+    }
+
+    .error {
+      color: #a00;
+    }
+
+    .warn {
+      color: #c90;
+    }
+
+    .log {
+    }
+
+    .result {
+      color: #04a;
+    }
+
+    .dem {
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+
+<div id="editor">// code goes here
+
+</div>
+<div id="output">
+</div>
+<div id="run">Run code <span class="dem">(Cmd + Enter)</span></div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/mode-javascript.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/theme-monokai.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/theme-dawn.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/mode-coffee.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.8.0/jshint.min.js"></script>
+<script type="text/javascript">
+  var editor = ace.edit("editor");
+  var output = document.getElementById("output");
+  var runBtn = document.getElementById("run");
+  var fontSize = 12;
+
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.commands.addCommand({
+    name: 'run',
+    bindKey: {win: 'Ctrl-Enter',  mac: 'Command-Enter'},
+    exec: function(editor) {
+      updateOutput(true);
+    },
+    readOnly: true
+  });
+  editor.commands.addCommand({
+    name: 'increase size',
+    bindKey: {win: 'Ctrl-=',  mac: 'Command-='},
+    exec: function(editor) {
+      setSize(fontSize + 2);
+    },
+    readOnly: true
+  });
+  editor.commands.addCommand({
+    name: 'decrease size',
+    bindKey: {win: 'Ctrl--',  mac: 'Command--'},
+    exec: function(editor) {
+      setSize(fontSize - 2);
+    },
+    readOnly: true
+  });
+  editor.commands.addCommand({
+    name: 'reset size',
+    bindKey: {win: 'Ctrl-0',  mac: 'Command-0'},
+    exec: function(editor) {
+      setSize(12);
+    },
+    readOnly: true
+  });
+  editor.commands.addCommand({
+    name: 'toggle theme',
+    bindKey: {win: 'Ctrl-9',  mac: 'Command-9'},
+    exec: function(editor) {
+      if (editor.getTheme() === 'ace/theme/monokai') {
+        editor.setTheme("ace/theme/dawn");
+      }
+      else {
+        editor.setTheme("ace/theme/monokai");
+      }
+    },
+    readOnly: true
+  });
+
+  editor.getSession().on('change', function(e) {
+    updateOutput();
+  });
+
+  runBtn.onclick = function() {
+    updateOutput(true);
+  };
+
+  var _alert = alert;
+  var _confirm = confirm;
+  var _prompt = prompt;
+
+  function setSize(newSize) {
+    fontSize = Math.max(12, Math.min(newSize, 48));
+    document.getElementById('editor').style.fontSize = fontSize + 'px';
+    output.style.fontSize = fontSize + 'px';
+  };
+
+  function updateOutput(fullRun) {
+    var logs = [];
+    var console = {
+      _write: function() {
+        var thisLog = [];
+        for (var i = 1, l = arguments.length; i < l; i++) {
+          thisLog.push(typeof arguments[i] === 'string' ? arguments[i] : JSON.stringify(arguments[i]));
+        }
+        logs.push({
+          type: arguments[0],
+          msg: thisLog.join(' ')
+        });
+      },
+      log: function() {
+        var args = [].slice.call(arguments);
+        args.unshift('log');
+        this._write.apply(this, args);
+      },
+      error: function() {
+        var args = [].slice.call(arguments);
+        args.unshift('error');
+        this._write.apply(this, args);
+      },
+      warn: function() {
+        var args = [].slice.call(arguments);
+        args.unshift('warn');
+        this._write.apply(this, args);
+      }
+    };
+
+    if (fullRun) {
+      window.alert = _alert;
+      window.confirm = _confirm;
+      window.prompt = _prompt;
+    }
+    else {
+      window.alert = function() {};
+      window.confirm = function() {};
+      window.prompt = function() {};
+    }
+
+    try {
+      var result = eval(editor.getValue());
+      var logText = logs.map(function(item) {
+        return '<div class="' + item.type + '">' + item.msg + '</div>';
+      }).join('');
+      if (result === undefined) {
+        output.innerHTML = logText;
+      }
+      else {
+        if (typeof result === 'object') {
+          output.innerHTML = logText + '<div class="result">' + JSON.stringify(result, null, '\t') + '</div>';
+        }
+        else {
+          output.innerHTML = logText + '<div class="result">' + result + '</div>';
+        }
+      }
+    }
+    catch(e) {
+      if (fullRun) {
+        JSHINT(editor.getValue(), {});
+        JSHINT.errors.forEach(function(err) {
+          if (err && err.id === '(error)') {
+            console.error(err.line + ':' + err.character + ' ' + err.reason);
+          }
+        });
+        logText = logs.map(function(item) {
+          return '<div class="' + item.type + '">' + item.msg + '</div>';
+        }).join('');
+        output.innerHTML = logText + '<div class="error">Error: ' + e.message + '</div>';
+      }
+    }
+  }
+
+  updateOutput(true);
+</script>
+
+</body>
+</html>
