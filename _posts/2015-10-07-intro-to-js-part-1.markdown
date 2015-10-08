@@ -2,7 +2,6 @@
 layout: post
 title:  "Intro to JavaScript Part 1"
 date:   2015-10-07 9:00:00
-categories: jekyll update
 ---
 
 
