@@ -1,0 +1,24 @@
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+<script>
+  hljs.configure({
+    languages: ['js'],
+    tabReplace: '    '
+  });
+  hljs.initHighlightingOnLoad();
+
+  $(function() {
+    setTimeout(function() {
+      $('.code-cover').each(function() {
+        $(this).css({
+          display: 'block',
+          top: $(this).prev().position().top + 'px',
+          height: $(this).prev().outerHeight() + 'px',
+          lineHeight: $(this).prev().outerHeight() + 'px'
+        });
+      }).click(function() {
+        $(this).fadeOut(200);
+      });
+  }, 100);
+  });
+</script>
