@@ -246,6 +246,11 @@ permalink: /playground/
   }
 
   updateOutput(true);
+
+  if (location.search.indexOf('?code=') === 0) {
+    editor.setValue(decodeURIComponent(location.search.substr(6)), 0);
+    editor.clearSelection();
+  }
 </script>
 
 </body>
