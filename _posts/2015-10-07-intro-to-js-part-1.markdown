@@ -230,7 +230,7 @@ You do this with an `if` statement.
 	}
 	// → 237 x 91 is greater than 10,000
 
-An `if` statement is made up of the `if` keyword, a condition in parenthesis, and a pair of curly praces. If the answer to the condition is yes (true) then the code inside the curly braces will run.
+An `if` statement is made up of the `if` keyword, a condition in parenthesis, and a pair of curly braces. If the answer to the condition is yes (true) then the code inside the curly braces will run.
 
 ---
 
@@ -302,6 +302,8 @@ Exercise 1
 
 1\. Ask the user for their name and store the result in a variable
 
+<div><a class="code-link"><i class="fa fa-link"></i></a></div>
+
 	// create a variable
 	var userName;
 
@@ -333,6 +335,8 @@ Exercise 2
 Let's make a simple game:
 
 1\. Ask the user for their age and store the result in a variable
+
+<div><a class="code-link"><i class="fa fa-link"></i></a></div>
 
 	// create a variable for the user's age
 	var userAge;

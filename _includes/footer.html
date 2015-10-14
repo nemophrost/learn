@@ -12,13 +12,19 @@
       $('.code-cover').each(function() {
         $(this).css({
           display: 'block',
-          top: $(this).prev().position().top + 'px',
-          height: $(this).prev().outerHeight() + 'px',
-          lineHeight: $(this).prev().outerHeight() + 'px'
+          top: $(this).prev().position().top - 50 + 'px',
+          height: $(this).prev().outerHeight() + 100 + 'px',
+          lineHeight: $(this).prev().outerHeight() + 100 + 'px'
         });
       }).click(function() {
         $(this).fadeOut(200);
       });
-  }, 100);
+
+    }, 100);
+
+    $('.code-link').each(function() {
+      this.href = '/learn/playground/?code=' + encodeURIComponent($(this).parent().next('pre').get(0).innerText);
+      this.target = '_blank';
+    });
   });
 </script>
