@@ -204,7 +204,10 @@ Exercise 2
 
 Let's make a tip calculator:
 
-1\. Create a function and assign it to a variable named **calculateTip**
+1. Create a function and assign it to a variable named **calculateTip**
+2. To calculate a tip, we need the total bill and a desired percentage. Add **total** and **tipPercentage** as parameters to your function
+3. Return the total times the tip percentage divided by 100 (to convert the percentage to a decimal)
+4. Call the function with 50 as the total and 18 as the tip percentage. You should get 9
 
 <div><a class="code-link"><i class="fa fa-link"></i></a></div>
 
@@ -217,12 +220,6 @@ Let's make a tip calculator:
 
 <div class="code-cover"></div>
 
-2\. To calculate a tip, we need the total bill and a desired percentage. Add **total** and **tipPercentage** as parameters to your function
-
-3\. Return the total times the tip percentage divided by 100 (to convert the percentage to a decimal)
-
-4\. Call the function with 50 as the total and 18 as the tip percentage. You should get 9
-
 
 ---
 
@@ -232,7 +229,8 @@ Bonus challenge 1:
 
 Let's make a default tip percentage. If you don't provide a tip percentage, we want it to default to 18.
 
-1\. To check if `tipPercentage` was passed into the function, check `if` it is equal to the keyword `undefined`. Inside your `if` statement, assign `18` to `tipPercentage`. (You can treat the parameters just like variables in that you can change their values inside the function).
+1. To check if `tipPercentage` was passed into the function, check `if` it is equal to the keyword `undefined`. Inside your `if` statement, assign `18` to `tipPercentage`. (You can treat the parameters just like variables in that you can change their values inside the function).
+2. Call the function with 50 as the total and no tip percentage. You should still get 9
 
 <div><a class="code-link"><i class="fa fa-link"></i></a></div>
 
@@ -253,8 +251,6 @@ Let's make a default tip percentage. If you don't provide a tip percentage, we w
 
 <div class="code-cover"></div>
 
-2\. Call the function with 50 as the total and no tip percentage. You should still get 9
-
 
 ---
 
@@ -264,7 +260,9 @@ Bonus challenge 2:
 
 Let's make our function return a sring formatted to look like a dollar amount. (ie. "$3.12")
 
-1\. Start by assigning the tip amount to a variable named tip.
+1. Start by assigning the tip amount to a variable named tip.
+2. Numbers in JS have a method (methods are properties that are functions) called `toFixed`. You use it just like `length` on strings, but with parenthesis since you are actually calling a function. `Number.toFixed()` accepts a single numeric parameter and returns a string version of the number you call it on rounded to the number of decimal places you pass to it. So `(98.765).toFixed(1)` would give you `"98.8"` (it rounds for you too). I also mentioned briefly that you can use the `+` operator on strings to join or concatenate them. Use `toFixed` and `+` to return the tip with 2 decimal places and a dollar sign in front.
+3. Calculate the tip needed for a total bill of $87.16
 
 <div><a class="code-link"><i class="fa fa-link"></i></a></div>
 
@@ -284,8 +282,3 @@ Let's make our function return a sring formatted to look like a dollar amount. (
 	// → $15.69
 
 <div class="code-cover"></div>
-
-2\. Numbers in JS have a method (methods are properties that are functions) called `toFixed`. You use it just like `length` on strings, but with parenthesis since you are actually calling a function. `Number.toFixed()` accepts a single numeric parameter and returns a string version of the number you call it on rounded to the number of decimal places you pass to it. So `(98.765).toFixed(1)` would give you `"98.8"` (it rounds for you too). I also mentioned briefly that you can use the `+` operator on strings to join or concatenate them. Use `toFixed` and `+` to return the tip with 2 decimal places and a dollar sign in front.
-
-3\. Calculate the tip needed for a total bill of $87.16
-

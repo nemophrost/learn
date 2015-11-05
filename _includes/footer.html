@@ -2,7 +2,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
 <script>
   hljs.configure({
-    languages: ['js'],
+    languages: ['js', 'html', 'css'],
     tabReplace: '    '
   });
   hljs.initHighlightingOnLoad();
@@ -23,6 +23,9 @@
     }, 100);
 
     $('.code-link').each(function() {
+      if (this.href) {
+        return;
+      }
       this.href = '/learn/playground/?code=' + encodeURIComponent($(this).parent().next('pre').get(0).innerText);
       this.target = '_blank';
     });
