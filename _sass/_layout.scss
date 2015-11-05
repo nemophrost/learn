@@ -210,6 +210,8 @@
 
 .post-content {
     margin-bottom: $spacing-unit;
+    user-select: none;
+    -webkit-user-select: none;
 
     h1, h2, h3, h4, h5, h6, p, blockquote, ul, ol {
         float: left;
@@ -256,6 +258,13 @@
         box-sizing: border-box;
         padding: 0 0 0 30px;
         margin-bottom: 24px;
+        user-select: text;
+        -webkit-user-select: text;
+    }
+
+    ol, ul {
+        margin-right: -60px;
+        padding-right: 60px;
     }
 
     hr {
