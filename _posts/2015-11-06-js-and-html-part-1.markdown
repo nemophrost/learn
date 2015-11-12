@@ -103,7 +103,7 @@ To define an object, we use the familiar curly braces and for each property we w
 
 ---
 
-To access a property of an object, simple use **dot notation** with parenthesis (the same as calling a function).
+To access a property of an object, simple use **dot notation** with parentheses (the same as calling a function).
 
 	car.start();
 	car.accelerate(); like we have done for getting the length of a string (`myName.length`).
@@ -115,7 +115,7 @@ To access a property of an object, simple use **dot notation** with parenthesis 
 
 ---
 
-You can also `assign` new properties to an object and change values with **dot notation** with parenthesis (the same as calling a function).
+You can also `assign` new properties to an object and change values with **dot notation** with parentheses (the same as calling a function).
 
 	car.start();
 	car.accelerate();.
@@ -227,7 +227,7 @@ Methods are defined the exact same way as the other properties, except that the 
 
 ---
 
-To call a method on an object we use **dot notation** with parenthesis (the same as calling a function).
+To call a method on an object we use **dot notation** with parentheses (the same as calling a function).
 
 	car.start();
 	// → The car has started.
