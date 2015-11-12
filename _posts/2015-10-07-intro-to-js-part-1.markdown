@@ -119,7 +119,7 @@ Alert, confirm, and prompt
 
 You can interact with the user with some built-in commands your browser supports.
 
-For each of these commands, you need to give the command a message to display to the user. You do that with parenthesis and the message (string) you want displayed inside the parenthesis.
+For each of these commands, you need to give the command a message to display to the user. You do that with parentheses and the message (string) you want displayed inside the parentheses.
 
 `alert` gives the use information and an OK button
 
@@ -146,7 +146,7 @@ Console.log
 
 The interpreter doesn't print out everything it does. If we want to know what it's thinking, we have to ask it to tell us.
 
-`console.log()` is a command to the browser to log whatever is inside the parenthesis to the console.
+`console.log()` is a command to the browser to log whatever is inside the parentheses to the console.
 
 	console.log(3 * 4);
 	// → 12
@@ -156,7 +156,7 @@ The interpreter doesn't print out everything it does. If we want to know what it
 
 ---
 
-You can even log more than one thing at a time by separating each thing you want to log with commas inside the parenthesis.
+You can even log more than one thing at a time by separating each thing you want to log with commas inside the parentheses.
 
 	console.log("I am", 35 * 12, "months old");
 	// → I am 420 months old
@@ -230,7 +230,7 @@ You do this with an `if` statement.
 	}
 	// → 237 x 91 is greater than 10,000
 
-An `if` statement is made up of the `if` keyword, a condition in parenthesis, and a pair of curly braces. If the answer to the condition is yes (true) then the code inside the curly braces will run.
+An `if` statement is made up of the `if` keyword, a condition in parentheses, and a pair of curly braces. If the answer to the condition is yes (true) then the code inside the curly braces will run.
 
 ---
 

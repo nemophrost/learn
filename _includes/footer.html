@@ -26,7 +26,11 @@
       if (this.href) {
         return;
       }
-      this.href = '/learn/playground/?code=' + encodeURIComponent($(this).parent().next('pre').get(0).innerText);
+      var code = $(this).parent().next('pre').get(0).innerText;
+      if ($(this).data('prefix')) {
+        code = $(this).data('prefix') + '\n\n' + code;
+      }
+      this.href = '/learn/playground/?code=' + encodeURIComponent(code);
       this.target = '_blank';
     });
   });

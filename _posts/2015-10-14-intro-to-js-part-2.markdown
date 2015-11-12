@@ -19,7 +19,7 @@ Functions allow you to split your code into smaller reusable parts
 Your first function
 ---
 
-Functions are created using the `function` keyword followed by parenthesis and a set of curly braces.
+Functions are created using the `function` keyword followed by parentheses and a set of curly braces.
 
 	function() {}
 
@@ -39,7 +39,7 @@ Let's make a function that logs a story.
 
 OK, so now you have a function. But how do you use it?
 
-To use a function you need to assign it to a variable. Then you can **call** the function by typing the name followed by parenthesis.
+To use a function you need to assign it to a variable. Then you can **call** the function by typing the name followed by parentheses.
 
 	var myStory = function() {
 		console.log("Once upon a time there was a wise king.");
@@ -261,7 +261,7 @@ Bonus challenge 2:
 Let's make our function return a sring formatted to look like a dollar amount. (ie. "$3.12")
 
 1. Start by assigning the tip amount to a variable named tip.
-2. Numbers in JS have a method (methods are properties that are functions) called `toFixed`. You use it just like `length` on strings, but with parenthesis since you are actually calling a function. `Number.toFixed()` accepts a single numeric parameter and returns a string version of the number you call it on rounded to the number of decimal places you pass to it. So `(98.765).toFixed(1)` would give you `"98.8"` (it rounds for you too). I also mentioned briefly that you can use the `+` operator on strings to join or concatenate them. Use `toFixed` and `+` to return the tip with 2 decimal places and a dollar sign in front.
+2. Numbers in JS have a method (methods are properties that are functions) called `toFixed`. You use it just like `length` on strings, but with parentheses since you are actually calling a function. `Number.toFixed()` accepts a single numeric parameter and returns a string version of the number you call it on rounded to the number of decimal places you pass to it. So `(98.765).toFixed(1)` would give you `"98.8"` (it rounds for you too). I also mentioned briefly that you can use the `+` operator on strings to join or concatenate them. Use `toFixed` and `+` to return the tip with 2 decimal places and a dollar sign in front.
 3. Calculate the tip needed for a total bill of $87.16
 
 <div><a class="code-link"><i class="fa fa-link"></i></a></div>
