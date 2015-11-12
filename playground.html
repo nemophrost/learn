@@ -100,158 +100,195 @@ permalink: /playground/
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/mode-coffee.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jshint/2.8.0/jshint.min.js"></script>
 <script type="text/javascript">
-  var editor = ace.edit("editor");
-  var output = document.getElementById("output");
-  var runBtn = document.getElementById("run");
-  var fontSize = 12;
+  (function() {
+    'use strict';
 
-  editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/javascript");
-  editor.commands.addCommand({
-    name: 'run',
-    bindKey: {win: 'Ctrl-Enter',  mac: 'Command-Enter'},
-    exec: function(editor) {
-      updateOutput(true);
-    },
-    readOnly: true
-  });
-  editor.commands.addCommand({
-    name: 'increase size',
-    bindKey: {win: 'Ctrl-=',  mac: 'Command-='},
-    exec: function(editor) {
-      setSize(fontSize + 2);
-    },
-    readOnly: true
-  });
-  editor.commands.addCommand({
-    name: 'decrease size',
-    bindKey: {win: 'Ctrl--',  mac: 'Command--'},
-    exec: function(editor) {
-      setSize(fontSize - 2);
-    },
-    readOnly: true
-  });
-  editor.commands.addCommand({
-    name: 'reset size',
-    bindKey: {win: 'Ctrl-0',  mac: 'Command-0'},
-    exec: function(editor) {
-      setSize(12);
-    },
-    readOnly: true
-  });
-  editor.commands.addCommand({
-    name: 'toggle theme',
-    bindKey: {win: 'Ctrl-9',  mac: 'Command-9'},
-    exec: function(editor) {
-      if (editor.getTheme() === 'ace/theme/monokai') {
-        editor.setTheme("ace/theme/dawn");
-      }
-      else {
-        editor.setTheme("ace/theme/monokai");
-      }
-    },
-    readOnly: true
-  });
+    var __alert = alert;
+    var __confirm = confirm;
+    var __prompt = prompt;
 
-  editor.getSession().on('change', function(e) {
-    updateOutput();
-  });
-
-  runBtn.onclick = function() {
-    updateOutput(true);
-  };
-
-  var _alert = alert;
-  var _confirm = confirm;
-  var _prompt = prompt;
-
-  function setSize(newSize) {
-    fontSize = Math.max(12, Math.min(newSize, 48));
-    document.getElementById('editor').style.fontSize = fontSize + 'px';
-    output.style.fontSize = fontSize + 'px';
-  };
-
-  function updateOutput(fullRun) {
-    var logs = [];
-    var console = {
-      _write: function() {
-        var thisLog = [];
-        for (var i = 1, l = arguments.length; i < l; i++) {
-          thisLog.push(typeof arguments[i] === 'string' ? arguments[i] : JSON.stringify(arguments[i]));
-        }
-        logs.push({
-          type: arguments[0],
-          msg: thisLog.join(' ')
-        });
-      },
-      log: function() {
-        var args = [].slice.call(arguments);
-        args.unshift('log');
-        this._write.apply(this, args);
-      },
-      error: function() {
-        var args = [].slice.call(arguments);
-        args.unshift('error');
-        this._write.apply(this, args);
-      },
-      warn: function() {
-        var args = [].slice.call(arguments);
-        args.unshift('warn');
-        this._write.apply(this, args);
-      }
-    };
-
-    if (fullRun) {
-      window.alert = _alert;
-      window.confirm = _confirm;
-      window.prompt = _prompt;
-    }
-    else {
-      window.alert = function() {};
-      window.confirm = function() {};
-      window.prompt = function() {};
+    function __modeCodeForEval(__code) {
+      var __modCode = __code.replace(/((\s(for|while) *?\([^\{]+\{)|(\sdo *?\{))/g, "$1 __INFINITELOOP__");
+      var __modeCodeLines = __modCode.split('\n').map(function(line, i) {
+        return line.replace(/__INFINITELOOP__/g, "if(__inInfiniteLoop()) { throw new Error('Infinite loop at line " + (i + 1) + "'); }");
+      });
+      return __modeCodeLines.join('\n');
     }
 
-    try {
-      var result = eval(editor.getValue());
-      var logText = logs.map(function(item) {
-        return '<div class="' + item.type + '">' + item.msg + '</div>';
-      }).join('');
-      if (result === undefined) {
-        output.innerHTML = logText;
-      }
-      else {
-        if (typeof result === 'object') {
-          output.innerHTML = logText + '<div class="result">' + JSON.stringify(result, null, '\t') + '</div>';
-        }
-        else {
-          output.innerHTML = logText + '<div class="result">' + result + '</div>';
-        }
-      }
-    }
-    catch(e) {
-      if (fullRun) {
-        JSHINT(editor.getValue(), {});
-        JSHINT.errors.forEach(function(err) {
-          if (err && err.id === '(error)') {
-            console.error(err.line + ':' + err.character + ' ' + err.reason);
+    function __wrappedEval(__code, __fullRun) {
+      var __logs = [];
+      var console = {
+        _write: function() {
+          var thisLog = [];
+          for (var i = 1, l = arguments.length; i < l; i++) {
+            thisLog.push(typeof arguments[i] === 'string' ? arguments[i] : JSON.stringify(arguments[i]));
           }
-        });
-        logText = logs.map(function(item) {
+          __logs.push({
+            type: arguments[0],
+            msg: thisLog.join(' ')
+          });
+        },
+        log: function() {
+          var args = [].slice.call(arguments);
+          args.unshift('log');
+          this._write.apply(this, args);
+        },
+        error: function() {
+          var args = [].slice.call(arguments);
+          args.unshift('error');
+          this._write.apply(this, args);
+        },
+        warn: function() {
+          var args = [].slice.call(arguments);
+          args.unshift('warn');
+          this._write.apply(this, args);
+        }
+      };
+  
+      if (__fullRun) {
+        window.alert = __alert;
+        window.confirm = __confirm;
+        window.prompt = __prompt;
+      }
+      else {
+        window.alert = function() {};
+        window.confirm = function() {};
+        window.prompt = function() {};
+      }
+  
+      try {
+        var __result = (function() {
+          'use strict';
+          var __loopCount = 0;
+          var __inInfiniteLoop = function() {
+              __loopCount++;
+              return __loopCount > 1000;
+          };
+          return eval(__modeCodeForEval(__code));
+        })();
+
+        var __logText = __logs.map(function(item) {
           return '<div class="' + item.type + '">' + item.msg + '</div>';
         }).join('');
-        output.innerHTML = logText + '<div class="error">Error: ' + e.message + '</div>';
+
+        if (__result === undefined) {
+          return __logText;
+        }
+        else {
+          if (typeof __result === 'object') {
+            return __logText + '<div class="result">' + JSON.stringify(__result, null, '\t') + '</div>';
+          }
+          else {
+            return __logText + '<div class="result">' + __result + '</div>';
+          }
+        }
+      }
+      catch(e) {
+        if (__fullRun) {
+          JSHINT(__code, {});
+          JSHINT.errors.forEach(function(err) {
+            if (err && err.id === '(error)') {
+              console.error(err.line + ':' + err.character + ' ' + err.reason);
+            }
+          });
+          __logText = __logs.map(function(item) {
+            return '<div class="' + item.type + '">' + item.msg + '</div>';
+          }).join('');
+          return __logText + '<div class="error">Error: ' + e.message + '</div>';
+        }
       }
     }
-  }
 
-  updateOutput(true);
 
-  if (location.search.indexOf('?code=') === 0) {
-    editor.setValue(decodeURIComponent(location.search.substr(6)), 0);
-    editor.clearSelection();
-  }
-</script>
+    (function() {
+      var editor = ace.edit("editor");
+      var output = document.getElementById("output");
+      var runBtn = document.getElementById("run");
+      var fontSize = 12;
+    
+      editor.setTheme("ace/theme/monokai");
+      editor.getSession().setMode("ace/mode/javascript");
+      editor.commands.addCommand({
+        name: 'run',
+        bindKey: {win: 'Ctrl-Enter',  mac: 'Command-Enter'},
+        exec: function(editor) {
+          updateOutput(__wrappedEval(editor.getValue(), true));
+        },
+        readOnly: true
+      });
+      editor.commands.addCommand({
+        name: 'increase size',
+        bindKey: {win: 'Ctrl-=',  mac: 'Command-='},
+        exec: function(editor) {
+          setSize(fontSize + 2);
+        },
+        readOnly: true
+      });
+      editor.commands.addCommand({
+        name: 'decrease size',
+        bindKey: {win: 'Ctrl--',  mac: 'Command--'},
+        exec: function(editor) {
+          setSize(fontSize - 2);
+        },
+        readOnly: true
+      });
+      editor.commands.addCommand({
+        name: 'reset size',
+        bindKey: {win: 'Ctrl-0',  mac: 'Command-0'},
+        exec: function(editor) {
+          setSize(12);
+        },
+        readOnly: true
+      });
+      editor.commands.addCommand({
+        name: 'toggle theme',
+        bindKey: {win: 'Ctrl-9',  mac: 'Command-9'},
+        exec: function(editor) {
+          if (editor.getTheme() === 'ace/theme/monokai') {
+            editor.setTheme("ace/theme/dawn");
+          }
+          else {
+            editor.setTheme("ace/theme/monokai");
+          }
+        },
+        readOnly: true
+      });
+    
+      editor.getSession().on('change', function(e) {
+        var val = editor.getValue();
+        localStorage.playgroundCode = val;
+        updateOutput(__wrappedEval(val));
+      });
+    
+      runBtn.onclick = function() {
+        updateOutput(__wrappedEval(editor.getValue(), true));
+      };
+    
+      function setSize(newSize) {
+        fontSize = Math.max(12, Math.min(newSize, 48));
+        document.getElementById('editor').style.fontSize = fontSize + 'px';
+        output.style.fontSize = fontSize + 'px';
+      };
+
+      function updateOutput(text) {
+        if (text != null) {
+          output.innerHTML = text;
+        }
+      }
+    
+      if (location.search.indexOf('?code=') === 0) {
+        editor.setValue(decodeURIComponent(location.search.substr(6)), 0);
+        editor.clearSelection();
+      }
+      else if (localStorage.playgroundCode) {
+        editor.setValue(localStorage.playgroundCode);
+        editor.clearSelection();
+      }
+
+      updateOutput(__wrappedEval(editor.getValue(), true));
+    })();
+  })();
+</script>`
 
 </body>
 </html>
